@@ -509,7 +509,7 @@ header ul a:hover{
 
 
 
-/* Skills section */
+
 .skills-section{
     display: flex;
     flex-direction: column;
@@ -581,7 +581,7 @@ header ul a:hover{
     font-size: 50px;
 }
 
-/* SLIDER  */
+
 
 .slider{
     position: absolute;
@@ -633,7 +633,7 @@ header ul a:hover{
 }
 
 
-  /* CONTACT SECTION */
+  
 .contact-section{
     width: 80%;
     height: 100vh;
@@ -722,7 +722,7 @@ header ul a:hover{
 }
 
 
-/* BLUR EFFECT ANIMAION */
+
 
 .autoBlur{
     animation: autoBlurAnimation linear both;
@@ -845,7 +845,7 @@ header ul a:hover{
     transition: 0.5s;
 }
 
-/* Sidebar Open ANimation */
+
 .sidebar.open-sidebar{
     animation: openSideBarAnimation 1.5s forwards;
 }
