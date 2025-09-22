@@ -71,7 +71,7 @@ const Portfolio = () => {
           </li>
         </ul>
 
-        {/* Icons */}
+        
         <div className="box-icons">
           <p>
             <i className="bx bxl-youtube"></i>
