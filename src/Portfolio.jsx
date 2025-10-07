@@ -1,8 +1,11 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import emailjs from "@emailjs/browser";
 import "./style.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import grid1 from "./assets/grid1.png";
 import grid4 from "./assets/grid4.png";
@@ -33,7 +36,48 @@ const Portfolio = () => {
     AOS.init();
   }, []);
 
+
+const form = useRef();
+
+const sendEmail = (e) => {
+  e.preventDefault();
+
+  const timeInput = document.createElement("input");
+  timeInput.type = "hidden";
+  timeInput.name = "time";
+  timeInput.value = new Date().toLocaleString();
+  form.current.appendChild(timeInput);
+
+  console.log("Form data being sent:", {
+    name: form.current.name.value,
+    email: form.current.email.value,
+    title: form.current.title.value,
+    message: form.current.message.value,
+    time: timeInput.value,
+  });
+
+  emailjs
+    .sendForm(
+      "service_ng5tajn",      
+      "template_hj1rbyv",     
+      form.current,
+      "D7_z8OfwCrCZaQo_o"      
+    )
+    .then(
+      (result) => {
+        console.log("✅ Message sent:", result.text);
+        toast.success("Message sent successfully!");
+      },
+      (error) => {
+        console.error("❌ Failed:", error); 
+         toast.error("Failed to send message!");
+      }
+    );
+};
+
   return (
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
     <div className="container">
       
       <video
@@ -73,9 +117,7 @@ const Portfolio = () => {
 
         
         <div className="box-icons">
-          <p>
-            <i className="bx bxl-youtube"></i>
-          </p>
+       
           <p>
             <a
               href="https://github.com/Aimathedev"
@@ -87,7 +129,11 @@ const Portfolio = () => {
             </a>
           </p>
           <p>
-            <i className="bx bxl-linkedin-square"></i>
+            <a href="https://www.linkedin.com/in/aima-aziz-289106355/"
+              target="_blank"
+              rel="noreferrer"
+              style={{ textDecoration: "none", color: "white" }}>   <i className="bx bxl-linkedin-square"></i></a>
+         
           </p>
         </div>
 
@@ -349,10 +395,10 @@ const Portfolio = () => {
           <a href="mailto:aima70836@gmail.com">
             <i className="bx bx-mail-send"></i> aima70836@gmail.com
           </a>
-          <a href="#">
+          <a href="https://www.linkedin.com/in/aima-aziz-289106355/">
             <i className="bx bxl-linkedin-square"></i> LinkedIn
           </a>
-          <div className="social-icons">
+          {/* <div className="social-icons">
             <a href="#">
               <i className="bx bxl-youtube"></i>
             </a>
@@ -362,46 +408,76 @@ const Portfolio = () => {
             <a href="#">
               <i className="bx bxl-facebook-circle"></i>
             </a>
-          </div>
+          </div> */}
         </div>
+<form ref={form} onSubmit={sendEmail} className="contact-box autoBlur">
+  <p>
+    Whether you're looking to build a new website, improve your existing
+    platform, or bring a unique project to life, I'm here to help.
+  </p>
 
-        <div className="contact-box autoBlur">
-          <p>
-            Whether you're looking to build a new website, improve your existing
-            platform, or bring a unique project to life, I'm here to help.
-          </p>
-          <p>Full Name</p>
-          <input placeholder="Your Full Name" type="text" />
-          <p>Email Address</p>
-          <input placeholder="Your Email" type="email" />
-          <p>Your Message</p>
-          <input
-            className="input-message"
-            type="text"
-            placeholder="Share your thoughts..."
-          />
-          <button>
-            Send Message <i className="bx bx-mail-send"></i>
-          </button>
-        </div>
+  <p>Full Name</p>
+  <input
+    placeholder="Your Full Name"
+    type="text"
+    name="name"
+    required
+  />
+
+  <p>Email Address</p>
+  <input
+    placeholder="Your Email"
+    type="email"
+    name="email"
+    required
+  />
+
+  
+
+  <p>Your Message</p>
+  <input
+    className="input-message"
+    type="text"
+    placeholder="Share your thoughts..."
+    name="message"
+    required
+  />
+
+  <button type="submit">
+    Send Message <i className="bx bx-mail-send"></i>
+  </button>
+</form>
+
+
       </section>
 
     
       <section className="footer">
         <h1>©️2025, thanks for visiting</h1>
         <div className="box-icons">
+        
           <p>
-            <i className="bx bxl-youtube"></i>
+                   <a
+              href="https://github.com/Aimathedev"
+              target="_blank"
+              rel="noreferrer"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              <i className="bx bxl-github"></i>
+            </a>
           </p>
           <p>
-            <i className="bx bxl-github"></i>
-          </p>
-          <p>
-            <i className="bx bxl-linkedin-square"></i>
+            <a href="https://www.linkedin.com/in/aima-aziz-289106355/"
+              target="_blank"
+              rel="noreferrer"
+              style={{ textDecoration: "none", color: "white" }}>   <i className="bx bxl-linkedin-square"></i></a>
+            
+            
           </p>
         </div>
       </section>
     </div>
+    </>
   );
 };
 
